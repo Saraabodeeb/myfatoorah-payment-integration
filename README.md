@@ -12,17 +12,21 @@ Framework: Express.js
 HTTP Client: Axios
 Configuration: dotenv
 ## 🚀 How to Run Locally
-1. Clone the repository:
+Clone the repository:
+Bash
 git clone https://github.com/Saraabodeeb/myfatoorah-payment-integration.git
 cd myfatoorah-payment-integration
-2. Install dependencies:
+Install dependencies:
+Bash
 npm install
-3. Set up Environment Variables:
+Set up Environment Variables:
 Create a .env file in the root directory and add your MyFatoorah API Key:
+Code snippet
 MYFATOORAH_API_KEY=your_sandbox_api_key_here
 BASE_URL=http://localhost:3000
 PORT=3000
-4. Start the server:
+Start the server:
+Bash
 node app.js
 Navigate to http://localhost:3000 to test the UI.
 📌 API Endpoints
