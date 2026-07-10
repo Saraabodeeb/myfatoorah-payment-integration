@@ -75,7 +75,7 @@ app.post('/api/verify-payment', async (req, res) => {
       'https://apitest.myfatoorah.com/v2/GetPaymentStatus',
       {
         Key: paymentId,
-        KeyType: 'PaymentId' // بنبحث باستخدام الـ ID اللي راجع من الرابط
+        KeyType: 'PaymentId' //search using the id from the url
       },
       {
         headers: {
@@ -88,9 +88,6 @@ app.post('/api/verify-payment', async (req, res) => {
     const paymentData = response.data.Data;
 
     if (paymentData.InvoiceStatus === 'Paid') {
-      // 💡 هنا بقى دور أخوكي:
-      // يكتب هنا كود الـ MySQL عشان يعمل Update للفاتورة إنها ادفعت
-      // مثال: UPDATE orders SET status = 'Paid' WHERE order_id = ?
       
       return res.status(200).json({ 
         success: true, 
@@ -110,11 +107,8 @@ app.post('/api/verify-payment', async (req, res) => {
   }
 });
 
-// ==========================================
-// 3. صفحات العودة (Callback URLs)
-// ==========================================
+//Callback URLs
 app.get('/api/payment-success', (req, res) => {
-  // MyFatoorah بترجع العميل هنا ومعاه paymentId في الرابط
   const paymentId = req.query.paymentId;
   
   res.send(`
