@@ -2,7 +2,7 @@
 <html dir="rtl" lang="ar">
 <head>
     <meta charset="UTF-8">
-    <title>لوحة التحكم - روابط الدفع</title>
+    <title>Dashboard - Payment Links</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         .card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
@@ -17,11 +17,11 @@
 <body>
 
     <div class="card">
-        <h2>إنشاء رابط دفع 💳</h2>
-        <input type="text" id="custName" placeholder="اسم العميل (مثال: أحمد محمد)">
-        <input type="number" id="custAmount" placeholder="المبلغ (دينار كويتي)">
+        <h2>creat payment link</h2>
+        <input type="text" id="custName" placeholder="Customer Name (Example: mohammed)">
+        <input type="number" id="custAmount" placeholder="Amount (Kuwaiti Dinar)">
         
-        <button onclick="generate()">إنشاء اللينك</button>
+        <button onclick="generate()">creat link</button>
         
         <div id="result"></div>
     </div>
@@ -33,11 +33,11 @@
             const resultDiv = document.getElementById('result');
 
             if (!name || !amount) {
-                resultDiv.innerHTML = '<span style="color:red;">من فضلك اكتب الاسم والمبلغ!</span>';
+                resultDiv.innerHTML = '<span style="color:red;">Please write the name and the amount</span>';
                 return;
             }
 
-            resultDiv.innerHTML = '⏳ جاري إنشاء الرابط...';
+            resultDiv.innerHTML = 'Generating link...';
 
             try {
                 const res = await fetch('/api/generate-link', {
@@ -49,16 +49,16 @@
 
                 if (data.success) {
                     resultDiv.innerHTML = `
-                        <span style="color:green; font-weight:bold;">✅ تم إنشاء الرابط بنجاح!</span><br>
-                        <a href="${data.paymentUrl}" target="_blank">اضغط هنا لفتح الرابط</a><br>
+                        <span style="color:green; font-weight:bold;">✅ The link has been created successfully</span><br>
+                        <a href="${data.paymentUrl}" target="_blank">Click here to open the link.</a><br>
                         <input class="link-box" type="text" value="${data.paymentUrl}" readonly onclick="this.select()">
-                        <div style="font-size:12px; color:gray; margin-top:5px;">(اضغط على الرابط في المربع لنسخه)</div>
+                        <div style="font-size:12px; color:gray; margin-top:5px;">(Click the link in the box to copy it.)</div>
                     `;
                 } else {
-                    resultDiv.innerHTML = '<span style="color:red;">❌ حصل مشكلة في إصدار الفاتورة.</span>';
+                    resultDiv.innerHTML = '<span style="color:red;">❌ An issue occurred while issuing the invoice.</span>';
                 }
             } catch (error) {
-                resultDiv.innerHTML = '<span style="color:red;">❌ السيرفر لا يعمل.</span>';
+                resultDiv.innerHTML = '<span style="color:red;">❌ The server is not working.</span>';
             }
         }
     </script>
